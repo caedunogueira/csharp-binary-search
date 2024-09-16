@@ -32,14 +32,14 @@ internal class MySortedList
 
         while (lowerBound <= upperBound)
         {
-            var middleIndex = (lowerBound + upperBound) / 2;
+            var middle = (lowerBound + upperBound) / 2;
 
-            if (existingElement == _items[middleIndex])
-                return middleIndex;
-            else if (existingElement < _items[middleIndex])
-                upperBound = middleIndex - 1;
+            if (existingElement == _items[middle])
+                return middle;
+            else if (existingElement < _items[middle])
+                upperBound = middle - 1;
             else
-                lowerBound = middleIndex + 1;
+                lowerBound = middle + 1;
         }
         
         return null;
