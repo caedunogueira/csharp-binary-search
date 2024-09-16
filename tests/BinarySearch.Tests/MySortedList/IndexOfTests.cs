@@ -18,14 +18,15 @@ public class IndexOfTests
         index.Should().Be(expectedElement);
     }
 
-    [Fact]
-    public void GivenThereIsNoElement_ThenReturnNull()
+    [Theory]
+    [MemberData(nameof(NonExistingElement))]
+    public void GivenThereIsNoElement_ThenReturnNull(int[] elements, int nonExistingElement)
     {
         var mySortedList = new MySortedListModel();
 
-        mySortedList.Add(1, 3, 5, 7, 9);
+        mySortedList.Add(elements);
 
-        var index = mySortedList.IndexOf(13);
+        var index = mySortedList.IndexOf(nonExistingElement);
 
         index.Should().BeNull();
     }
@@ -53,5 +54,22 @@ public class IndexOfTests
                 3                               // expected index
             };
         }
-    } 
+    }
+
+    public static IEnumerable<object[]> NonExistingElement
+    {
+        get
+        {
+            yield return new object[]
+            {
+                new int[] { 1, 3, 5, 7, 9 },    // elements
+                13                              // non-existing element
+            };
+            yield return new object[]
+            {
+                Array.Empty<int>(),             // elements
+                5                               // non-existing element
+            };
+        }
+    }
 }
