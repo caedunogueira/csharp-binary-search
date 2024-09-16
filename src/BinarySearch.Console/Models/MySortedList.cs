@@ -15,6 +15,11 @@ internal class MySortedList
     public MySortedList() =>
         _items = [];
 
+    /// <summary>
+    /// For the first version it expects that elements added to the array are sorted. The method Add is just
+    /// auxiliary method to help find the element in this data structure using Binary Search.
+    /// </summary>
+    /// <param name="newItems"></param>
     internal void Add(params int[] newItems)
     {
         var lastIndex = _items.Length - 1;
@@ -44,4 +49,7 @@ internal class MySortedList
         
         return null;
     }
+
+    internal bool HasElements() =>
+        _items.Length > 0;
 }
