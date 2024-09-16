@@ -17,4 +17,16 @@ public class IndexOfTests
 
         index.Should().Be(3);
     }
+
+    [Fact]
+    public void GivenThereIsNoElement_ThenReturnNull()
+    {
+        var mySortedList = new MySortedListModel();
+
+        mySortedList.Add(1, 3, 5, 7, 9);
+
+        var index = mySortedList.IndexOf(13);
+
+        index.Should().BeNull();
+    }
 }
