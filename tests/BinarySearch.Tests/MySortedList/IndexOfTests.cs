@@ -1,21 +1,21 @@
-﻿using BinarySearch.Console.Models;
-using FluentAssertions;
+﻿using FluentAssertions;
 using MySortedListModel = BinarySearch.Console.Models.MySortedList;
 
 namespace BinarySearch.Tests.MySortedList;
 
 public class IndexOfTests
 {
-    [Fact]
-    public void GivenExistingElement_ThenReturnItsIndex()
+    [Theory]
+    [MemberData(nameof(ExistingElements))]
+    public void GivenExistingElement_ThenReturnItsIndex(int[] elements, int existingElement, int expectedElement)
     {
         var mySortedList = new MySortedListModel();
 
-        mySortedList.Add(1, 3, 5, 7, 9);
+        mySortedList.Add(elements);
 
-        var index = mySortedList.IndexOf(7);
+        var index = mySortedList.IndexOf(existingElement);
 
-        index.Should().Be(3);
+        index.Should().Be(expectedElement);
     }
 
     [Fact]
@@ -29,4 +29,29 @@ public class IndexOfTests
 
         index.Should().BeNull();
     }
+
+    public static IEnumerable<object[]> ExistingElements
+    {
+        get
+        {
+            yield return new object[] 
+            { 
+                new int[] { 1 },    // elements
+                1,                  // existing element
+                0                   // expected index
+            };
+            yield return new object[] 
+            { 
+                new int[] { 1, 3 }, // elements
+                3,                  // existing element
+                1                   // expected index
+            };
+            yield return new object[] 
+            { 
+                new int[] { 1, 3, 5, 7, 9 },    // elements
+                7,                              // existing element
+                3                               // expected index
+            };
+        }
+    } 
 }
