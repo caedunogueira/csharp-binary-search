@@ -7,19 +7,21 @@ namespace BinarySearch.Console.Models;
 internal class MySortedList
 {
     /// <summary>
-    /// The purpose to use Array data structure instead of SortedList<T> data structure is to exercise
-    /// handling the elements without using existing .NET data structures like SortedList<T>
+    /// The purpose to use Array instead of SortedList<T> is to exercise handling the elements 
+    /// without using existing .NET data structures like SortedList<T>
     /// </summary>
     private int[] _items;
+
+    internal int[] Items => _items;
 
     public MySortedList() =>
         _items = [];
 
     /// <summary>
-    /// For the first version it expects that elements added to the array are sorted. The method Add is just
-    /// auxiliary method to help find the element in this data structure using Binary Search.
+    /// Add sorted elements into the data structure. It expects the items are sorted considering the
+    /// existing ones in the instance.
     /// </summary>
-    /// <param name="newItems"></param>
+    /// <param name="newItems">Sorted items.</param>
     internal void Add(params int[] newItems)
     {
         var lastIndex = _items.Length - 1;
@@ -49,7 +51,4 @@ internal class MySortedList
         
         return null;
     }
-
-    internal bool HasElements() =>
-        _items.Length > 0;
 }

@@ -5,19 +5,25 @@ namespace BinarySearch.Tests.MySortedList;
 
 public class AddTests
 {
-    [Fact]
-    public void GivenElement_ThenAddToArray()
+    [Theory]
+    [MemberData(nameof(SortedItems))]
+    public void GivenElement_ThenAddToArray(int[] sortedItems)
     {
         var mySortedList = new MySortedListModel();
 
-        mySortedList.HasElements().
-            Should().
-            BeFalse("There is no element added to MySortedList newly created.");
+        mySortedList.Items.Should().BeEmpty("There is no elements in a newly instance.");
 
-        mySortedList.Add(5);
+        mySortedList.Add(sortedItems);
 
-        mySortedList.HasElements()
-            .Should()
-            .BeTrue("There are elements added to MySortedList.");
+        mySortedList.Items.Should().BeEquivalentTo(sortedItems);
+    }
+
+    public static IEnumerable<object[]> SortedItems
+    {
+        get
+        {
+            yield return new object[] { new int[] { 5 } };
+            yield return new object[] { new int[] { 1, 3, 5, 7, 9 } };
+        }
     }
 }
